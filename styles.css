@@ -1,0 +1,132 @@
+body{
+    display: block;
+}
+#input-header{
+    text-align: center;
+    margin: 0;
+}
+#main-container{
+    text-align: center;
+}
+#main-of-tasks{
+    display: flex;
+    justify-content: center;
+}
+
+
+/*tamaño de fuente de la etiqueta*/
+h2{
+    font-size: 20px;
+    margin-left: 42px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 7px;
+    margin-top: 5px;
+}
+p {
+    font-size: 15px;
+    margin-left: 42px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-bottom: 5px;
+}
+
+
+/*estetica de las etiquetas*/
+#list-of-tasks {
+    margin: auto;
+    margin-top: 10px;
+    padding: 0;
+}
+#list-of-tasks li {
+    position: relative;
+    display: flex;
+    background: rgb(215, 185, 214);
+    width: 300px;
+    height: auto;
+    list-style: none;
+    flex-direction: row;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    border-radius: 7px;
+}
+#list-of-tasks li .close {
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 2.5px;
+    margin-bottom: 5px;
+}
+#list-of-tasks li .close:hover {
+    color: red;
+    transition: 0.5s;
+}
+
+/*estetica de los li*/
+
+
+
+/*ESTETICA DEL DIV*/
+#div-container{
+    /*border-right: 1px solid black;*/
+    width: 300px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#div-container:hover {
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+    border-radius: 5px;
+}
+
+.marked {
+    background-color: rgb(215, 82, 210); /* Color de fondo amarillo claro */
+    text-decoration: line-through 1.2px black;
+}
+
+
+ /*ESTETICA DEL DIV LAPIZ*/
+ .div-container-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+ }
+.edit{
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 2.5px;
+    font-size: 27px;
+}
+.edit:hover{
+    color: red;
+    transition: 0.5s;
+}
+
+
+/*el aspecto del contenido editable*/
+[contentEditable="true"] {
+    border: 1.5px solid #4407ed;
+    padding: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/*Aspecto del check*/
+.my-check-img {
+    width: 30px;
+    height: 30px;
+    left: 6px;
+    position: absolute;
+}
