@@ -31,108 +31,111 @@
      
 
   //FUNCION DE CIERRE OPERATIVA Y MAS FUNCIONAL
-  function eliminateElement() {
-  var listOfTasks = document.getElementById("list-of-tasks");
+//FUNCION DE CIERRE OPERATIVA Y MAS FUNCIONAL
+    function eliminateElement() {
+    var listOfTasks = document.getElementById("list-of-tasks");
 
-      // Asignar el evento a la lista contenedora y utilizar delegación de eventos
-      listOfTasks.addEventListener('click', function(event) {
-          var target = event.target;
+    // Asignar el evento a la lista contenedora y utilizar delegación de eventos
+    listOfTasks.addEventListener('click', function(event) {
+        var target = event.target;
 
-          // Verificar si el clic se hizo en un botón de clase 'close'
-          if (target.classList.contains('close')) {
-              var liToRemove = target.closest('li');
+        // Verificar si el clic se hizo en un botón de clase 'close'
+        if (target.classList.contains('close')) {
+            var liToRemove = target.closest('li');
 
-              // Verificar si el elemento tiene un nodo padre antes de intentar eliminarlo
-              if (liToRemove && liToRemove.parentNode) {
-                  liToRemove.parentNode.removeChild(liToRemove);
-                  
-                  // Eliminar el elemento de la memoria
-                  var taskElement = target.closest('.li-container');
-                  if (taskElement) {
-                      taskElement.remove();
-                  }
-                  // Actualizar el LocalStorage después de eliminar
-                  updateLocalStorage();
-              }
-          }
-      });
-  }
+            // Verificar si el elemento tiene un nodo padre antes de intentar eliminarlo
+            if (liToRemove && liToRemove.parentNode) {
+                liToRemove.parentNode.removeChild(liToRemove);
+                
+                // Eliminar el elemento de la memoria
+                var taskElement = target.closest('.li-container');
+                if (taskElement) {
+                    taskElement.remove();
+                }
 
-  //Funcion para actualizar el contenido de la memoria y el array
-  function updateLocalStorage() {
-      var tasks = Array.from(document.querySelectorAll('.li-container')).map(function(taskElement) {
-          var title = taskElement.querySelector('h2').textContent;
-          var description = taskElement.querySelector('p').textContent;
-          return createTaskObject(title, description);
-      });
+                    // Eliminar el estado de la tarea del localStorage
+                var taskId = liToRemove.id; // Asume que el ID del elemento es único
+                localStorage.removeItem('markedState_' + taskId);
+                // Actualizar el LocalStorage después de eliminar
+                updateLocalStorage();
+            }
+        }
+    });
+}
 
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
+//Funcion para actualizar el contenido de la memoria y el array
+function updateLocalStorage() {
+    var tasks = Array.from(document.querySelectorAll('.li-container')).map(function(taskElement) {
+        var title = taskElement.querySelector('h2').textContent;
+        var description = taskElement.querySelector('p').textContent;
+        return createTaskObject(title, description);
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
       
-  // Función para crear un nuevo objeto de tarea
-  function createTaskObject(title, description) {
-      return {
-          title: title,
-          description: description
-      };
-  }
+// Función para crear un nuevo objeto de tarea
+function createTaskObject(title, description) {
+    return {
+        title: title,
+        description: description
+    };
+}
 
-  // Función para crear un nuevo elemento de tarea en el DOM
-  function createTaskElement(taskData) {
-      var li = document.createElement("li");
-      li.className = "li-container";
+// Función para crear un nuevo elemento de tarea en el DOM
+function createTaskElement(taskData) {
+    var li = document.createElement("li");
+    li.className = "li-container";
 
-      // Asignar un ID único basado en el contador
-      var taskId = generateUniqueId();
-      li.id = 'task_' + taskId;
+    // Asignar un ID único basado en el contador
+    var taskId = generateUniqueId();
+    li.id = 'task_' + taskId;
 
-      var img = document.createElement("img");
-      img.className = "my-check-img";
-      img.src = "img/check.png";
-      img.style.display = "none";
-      li.appendChild(img);
+    var img = document.createElement("img");
+    img.className = "my-check-img";
+    img.src = "img/check.png";
+    img.style.display = "none";
+    li.appendChild(img);
 
-      var div = document.createElement("div");
-      var h2 = document.createElement("h2");
-      var pDescription = document.createElement("p");
+    var div = document.createElement("div");
+    var h2 = document.createElement("h2");
+    var pDescription = document.createElement("p");
 
-      h2.id = "title-task";
-      pDescription.id = "description-task";
+    h2.id = "title-task";
+    pDescription.id = "description-task";
 
-      var divEspan = document.createElement("div");
-      divEspan.className = "div-container-edit";
+    var divEspan = document.createElement("div");
+    divEspan.className = "div-container-edit";
 
-      var edit = document.createElement("SPAN");
-      var edittxt = document.createTextNode("\u270F");
+    var edit = document.createElement("SPAN");
+    var edittxt = document.createTextNode("\u270F");
 
-      var span = document.createElement("SPAN");
-      var txt = document.createTextNode("\u00D7");
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
 
-      h2.textContent = taskData.title;
-      pDescription.textContent = taskData.description;
+    h2.textContent = taskData.title;
+    pDescription.textContent = taskData.description;
 
-      div.appendChild(h2);
-      div.appendChild(pDescription);
-      div.id = "div-container";
-      div.addEventListener('click', function() {
-          checkElements(div);
-      });
+    div.appendChild(h2);
+    div.appendChild(pDescription);
+    div.id = "div-container";
+    div.addEventListener('click', function() {
+        checkElements(div);
+    });
 
-      edit.className = "edit";
-      edit.id = "event-edit";
-      edit.appendChild(edittxt);
+    edit.className = "edit";
+    edit.id = "event-edit";
+    edit.appendChild(edittxt);
 
-      span.className = "close";
-      span.appendChild(txt);
+    span.className = "close";
+    span.appendChild(txt);
 
-      li.appendChild(div);
-      li.appendChild(divEspan);
-      divEspan.appendChild(edit);
-      divEspan.appendChild(span);
+    li.appendChild(div);
+    li.appendChild(divEspan);
+    divEspan.appendChild(edit);
+    divEspan.appendChild(span);
 
-      return li;
-      
-  }
+    return li;
+}
 
 // Función para guardar los datos en el LocalStorage
 function saveTaskToLocalStorage(taskData) {
@@ -175,65 +178,65 @@ function generateUniqueId() {
 
 //funcion que le hace check a los elementos
 function checkElements(element) {
- // Verifica si el elemento está siendo editado
- if (element.querySelector('#title-task').contentEditable === 'true' ||
-     element.querySelector('#description-task').contentEditable === 'true') {
-     return; // No realices ninguna acción si el elemento está siendo editado
- }
+    // Verifica si el elemento está siendo editado
+    if (element.querySelector('#title-task').contentEditable === 'true' ||
+        element.querySelector('#description-task').contentEditable === 'true') {
+        return; // No realices ninguna acción si el elemento está siendo editado
+    }
 
- // Obtiene el elemento li padre
- var liElement = element.closest('li');
+    // Obtiene el elemento li padre
+    var liElement = element.closest('li');
 
- // Alterna la clase 'marked' en el elemento li
- liElement.classList.toggle('marked');
+    // Alterna la clase 'marked' en el elemento li
+    liElement.classList.toggle('marked');
 
- var image = liElement.querySelector('.my-check-img');
- if (image.style.display === 'none') {
-     image.style.display = 'block'; // Muestra la imagen si estaba oculta
- } else {
-     image.style.display = 'none'; // Oculta la imagen si estaba visible
- }
+    var image = liElement.querySelector('.my-check-img');
+    if (image.style.display === 'none') {
+        image.style.display = 'block'; // Muestra la imagen si estaba oculta
+    } else {
+        image.style.display = 'none'; // Oculta la imagen si estaba visible
+    }
 
- // Guarda el estado 'marked' en localStorage
- var taskId = liElement.id; // Asume que el ID del elemento li es único
- var markedState = liElement.classList.contains('marked');
- localStorage.setItem('markedState_' + taskId, markedState);
+    // Guarda el estado 'marked' en localStorage
+    var taskId = liElement.id; // Asume que el ID del elemento li es único
+    var markedState = liElement.classList.contains('marked');
+    localStorage.setItem('markedState_' + taskId, markedState);
 }
 
 //funcion para restaurar los checks ya realizados
 function restoreMarkedState() {
 var listOfTasks = document.getElementById("list-of-tasks").children;
 
-for (var i = 0; i < listOfTasks.length; i++) {
-    var taskId = listOfTasks[i].id;
-    var markedState = JSON.parse(localStorage.getItem('markedState_' + taskId)); // Convertir a booleano
+    for (var i = 0; i < listOfTasks.length; i++) {
+        var taskId = listOfTasks[i].id;
+        var markedState = JSON.parse(localStorage.getItem('markedState_' + taskId)); // Convertir a booleano
 
-    console.log('Task ID:', taskId, 'Marked State:', markedState);
+        console.log('Task ID:', taskId, 'Marked State:', markedState);
 
-    if (markedState) {
-        // Aplicar la clase 'marked' y visualización del icono
-        listOfTasks[i].classList.add('marked');
-        listOfTasks[i].querySelector('.my-check-img').style.display = 'block'; // Cambio aquí
+        if (markedState) {
+            // Aplicar la clase 'marked' y visualización del icono
+            listOfTasks[i].classList.add('marked');
+            listOfTasks[i].querySelector('.my-check-img').style.display = 'block'; // Cambio aquí
+        }
     }
-}
 }
 
 // Función para obtener las tareas almacenadas en el LocalStorage
 function getTasksFromLocalStorage() {
-  return JSON.parse(localStorage.getItem('tasks')) || [];
+    return JSON.parse(localStorage.getItem('tasks')) || [];
 }
 
 // Función para cargar las tareas almacenadas en el LocalStorage y mostrarlas en el DOM
 function loadTasks() {
-  var tasks = getTasksFromLocalStorage();
-  var listOfTasks = document.getElementById("list-of-tasks");
+    var tasks = getTasksFromLocalStorage();
+    var listOfTasks = document.getElementById("list-of-tasks");
 
-  tasks.forEach(function(taskData) {
-      var taskElement = createTaskElement(taskData);
-      listOfTasks.appendChild(taskElement);
-  });
+    tasks.forEach(function(taskData) {
+        var taskElement = createTaskElement(taskData);
+        listOfTasks.appendChild(taskElement);
+    });
 
-  addContentEditable(); 
+    addContentEditable(); 
 }
 
 
@@ -242,15 +245,15 @@ function loadTasks() {
 function addeventOnclick() {
   var listOfTasks = document.getElementById("list-of-tasks");
 
-  // Utiliza delegación de eventos para asignar el evento 'click' a la lista contenedora
-  listOfTasks.addEventListener('click', function(event) {
-      var target = event.target;
+    // Utiliza delegación de eventos para asignar el evento 'click' a la lista contenedora
+    listOfTasks.addEventListener('click', function(event) {
+        var target = event.target;
 
-      // Verifica si el clic se hizo en un elemento con la clase 'edit' y el id 'event-edit'
-      if (target.classList.contains('edit') && target.id === 'event-edit') {
-          toggleEditing(target);
-      }
-  });
+        // Verifica si el clic se hizo en un elemento con la clase 'edit' y el id 'event-edit'
+        if (target.classList.contains('edit') && target.id === 'event-edit') {
+            toggleEditing(target);
+        }
+    });
 }
 
 // Llamada a la función loadTasks al cargar la página para mostrar las tareas existentes
