@@ -7,47 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+
     <div id="main-container">
 
         <header id="input-header">
-            <h2>To-Do-List</h2>
+            <h1>To-Do-List</h1>
             <input type="text" id="title-task-input" placeholder="Nombre de la Tarea">
             <input type="text" id="description-task-input" placeholder="Descripción de la Tarea">
-            <button onclick="addTask(), eliminateElement(), clearImput(), addContenteEditable(), addeventOnclick();">Agregar Tarea</button>
+            <button id="button-input" onclick="addTask(), eliminateElement(), clearImput(), addeventOnclick();">Agregar Tarea</button>
         </header>
 
         <!--RECUERDA HACER DESDE JSEL DOM PARA COLOCAR EL CONTENIDO EDITABLE Y LA FUNCION-->
         <main id="main-of-tasks">
             <ul id="list-of-tasks">
-                <li>
-                    <img class="my-check-img" src="img/check.png" style="display: none;">
-                    <div id="div-container" onclick="checkElements(this)">
-                        <h2 id="title-task">Ir al gimnasio</h2>
-                        <p id="description-task">Ir al gimanasio para evitar enfermearme</p>
-                    </div>
-                </li>
-
-                <li>
-                    <img class="my-check-img" src="img/check.png" style="display: none;">
-                    <div id="div-container" onclick="checkElements(this)">
-                        <h2 id="title-task">Comprar comida al gato</h2>
-                        <p id="description-task">Si la gata no come se muere de hambre</p>
-                    <div>
-                </li>
-
-                <li>
-                    <img class="my-check-img" src="img/check.png" style="display: none;">
-                    <div id="div-container" onclick="checkElements(this)">
-                        <h2 id="title-task">Pagar la luz</h2>
-                        <p id="description-task">La luz saldra cara este mes por culpa de putin</p>
-                    </div>
-                </li>
             </ul>
         </main>
 
     </div>
-
     <script src="code.js"></script>
 </body>
 </html>

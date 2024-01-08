@@ -1,5 +1,6 @@
 body{
     display: block;
+    font-family: Arial, Helvetica, sans-serif;
 }
 #input-header{
     text-align: center;
@@ -16,7 +17,7 @@ body{
 
 /*tamaño de fuente de la etiqueta*/
 h2{
-    font-size: 20px;
+    font-size: 16px;
     margin-left: 42px;
     margin-top: 0;
     margin-bottom: 5px;
@@ -25,7 +26,7 @@ h2{
     margin-top: 5px;
 }
 p {
-    font-size: 15px;
+    font-size: 14px;
     margin-left: 42px;
     margin-top: 0;
     margin-bottom: 0;
@@ -70,7 +71,21 @@ p {
     transition: 0.5s;
 }
 
-/*estetica de los li*/
+/*ESTETICA DEL INPUTs*/
+#title-task-input {
+    margin-top:  2.5px;
+    margin-bottom:  2.5px;
+    height: 30px;
+}
+#description-task-input {
+    margin-top: 2.5px;
+    margin-bottom:  2.5px;
+    height: 30px;
+}
+/*ESTETICA DEL BOTON*/
+#button-input{
+    height: 35px;
+}
 
 
 
@@ -82,7 +97,7 @@ p {
     border-radius: 5px;
 }
 #div-container:hover {
-    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.5);
+    color: red;
     transition: 0.5s;
     border-radius: 5px;
 }
