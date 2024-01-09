@@ -1,39 +1,39 @@
-  
-  var idCounter = 0; // Variable global para llevar el conteo de IDs 
+var idCounter = 0; // Variable global para llevar el conteo de IDs 
    
-  //BUCLE QUE ITERA POR TODOS LOS ELEMENTO H2 Y P PARA DARLE EL ATRIBUTO DE EDITOR DE CONTENIDO
-  function addContentEditable() {
-      // Selecciona todos los elementos h2 y p dentro de la lista de tareas
-      var elementsInsideDiv = document.querySelectorAll('#list-of-tasks h2, #list-of-tasks p');
+//BUCLE QUE ITERA POR TODOS LOS ELEMENTO H2 Y P PARA DARLE EL ATRIBUTO DE EDITOR DE CONTENIDO
+function addContentEditable() {
+    // Selecciona todos los elementos h2 y p dentro de la lista de tareas
+    var elementsInsideDiv = document.querySelectorAll('#list-of-tasks h2, #list-of-tasks p');
 
-      elementsInsideDiv.forEach(function(element) {
-          element.setAttribute('contentEditable', 'false');
-      });
-  }
+    elementsInsideDiv.forEach(function(element) {
+        element.setAttribute('contentEditable', 'false');
+    });
+}
 
-  
-  //FUNCION PARA EDITAR CONTENIDO
-  function toggleEditing(span) {
-      var container = span.parentElement.previousElementSibling;
-      var titleElement = container.querySelector('#title-task');
-      var descriptionElement = container.querySelector('#description-task');
 
-      titleElement.contentEditable = (titleElement.contentEditable === 'false').toString();
-      descriptionElement.contentEditable = (descriptionElement.contentEditable === 'false').toString();
+//FUNCION PARA EDITAR CONTENIDO
+function toggleEditing(span) {
+    var container = span.parentElement.previousElementSibling;
+    var titleElement = container.querySelector('#title-task');
+    var descriptionElement = container.querySelector('#description-task');
 
-      if (titleElement.contentEditable === 'true') {
-          titleElement.focus();
-      } else if (descriptionElement.contentEditable === 'true') {
-          descriptionElement.focus();
-      }
-  }
-     
-     
+    titleElement.contentEditable = (titleElement.contentEditable === 'false').toString();
+    descriptionElement.contentEditable = (descriptionElement.contentEditable === 'false').toString();
 
-  //FUNCION DE CIERRE OPERATIVA Y MAS FUNCIONAL
+    if (titleElement.contentEditable === 'true') {
+        titleElement.focus();
+    } else if (descriptionElement.contentEditable === 'true') {
+        descriptionElement.focus();
+    }
+    updateLocalStorage();//observa como va esto
+}
+   
+
+   
+
 //FUNCION DE CIERRE OPERATIVA Y MAS FUNCIONAL
-    function eliminateElement() {
-    var listOfTasks = document.getElementById("list-of-tasks");
+function eliminateElement() {
+var listOfTasks = document.getElementById("list-of-tasks");
 
     // Asignar el evento a la lista contenedora y utilizar delegación de eventos
     listOfTasks.addEventListener('click', function(event) {
@@ -53,7 +53,7 @@
                     taskElement.remove();
                 }
 
-                    // Eliminar el estado de la tarea del localStorage
+                 // Eliminar el estado de la tarea del localStorage
                 var taskId = liToRemove.id; // Asume que el ID del elemento es único
                 localStorage.removeItem('markedState_' + taskId);
                 // Actualizar el LocalStorage después de eliminar
@@ -63,6 +63,7 @@
     });
 }
 
+
 //Funcion para actualizar el contenido de la memoria y el array
 function updateLocalStorage() {
     var tasks = Array.from(document.querySelectorAll('.li-container')).map(function(taskElement) {
@@ -70,9 +71,10 @@ function updateLocalStorage() {
         var description = taskElement.querySelector('p').textContent;
         return createTaskObject(title, description);
     });
+
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
-      
+    
 // Función para crear un nuevo objeto de tarea
 function createTaskObject(title, description) {
     return {
@@ -135,132 +137,139 @@ function createTaskElement(taskData) {
     divEspan.appendChild(span);
 
     return li;
+    
 }
 
 // Función para guardar los datos en el LocalStorage
 function saveTaskToLocalStorage(taskData) {
-  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  tasks.push(taskData);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+tasks.push(taskData);
+localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 // Función principal para agregar una tarea
 function addTask() {
-  var title = document.getElementById("title-task-input").value;
-  var description = document.getElementById("description-task-input").value;
 
-  var taskData = createTaskObject(title, description);
-  saveTaskToLocalStorage(taskData);
+var title = document.getElementById("title-task-input").value;
+var description = document.getElementById("description-task-input").value;
 
-  var newTaskElement = createTaskElement(taskData);
+if(title === "" || description === ""){
+    alert("Ambos campos deben estar rellenos");
+    return;
+} //control point to avoid empty
 
-  var listOfTasks = document.getElementById("list-of-tasks");
-  listOfTasks.appendChild(newTaskElement);
+var taskData = createTaskObject(title, description);
+saveTaskToLocalStorage(taskData);
 
-  window.location.reload(true);//experimental,  funciona OJO
+var newTaskElement = createTaskElement(taskData);
+
+var listOfTasks = document.getElementById("list-of-tasks");
+listOfTasks.appendChild(newTaskElement);
+
+window.location.reload(true);//experimental,  funciona OJO
 }
 
 //funcion para limpiar los imputs
 function clearImput() {
-  // obtén el elemento de entrada por su ID
-  var inputElement1 = document.getElementById("title-task-input");
-  var inputElement2 = document.getElementById("description-task-input");
-  // limpia el valor del campo de entrada asignándole una cadena vacía
-  inputElement1.value = "";
-  inputElement2.value = "";
+// obtén el elemento de entrada por su ID
+var inputElement1 = document.getElementById("title-task-input");
+var inputElement2 = document.getElementById("description-task-input");
+// limpia el valor del campo de entrada asignándole una cadena vacía
+inputElement1.value = "";
+inputElement2.value = "";
 }
 
 //funcion qu se encarga de egenerar un contado como id unico
 function generateUniqueId() {
-  // Incrementa el contador y devuelve el nuevo valor
-  return idCounter++;
+// Incrementa el contador y devuelve el nuevo valor
+return idCounter++;
 }
 
 //funcion que le hace check a los elementos
 function checkElements(element) {
-    // Verifica si el elemento está siendo editado
-    if (element.querySelector('#title-task').contentEditable === 'true' ||
-        element.querySelector('#description-task').contentEditable === 'true') {
-        return; // No realices ninguna acción si el elemento está siendo editado
-    }
+// Verifica si el elemento está siendo editado
+if (element.querySelector('#title-task').contentEditable === 'true' ||
+   element.querySelector('#description-task').contentEditable === 'true') {
+   return; // No realices ninguna acción si el elemento está siendo editado
+}
 
-    // Obtiene el elemento li padre
-    var liElement = element.closest('li');
+// Obtiene el elemento li padre
+var liElement = element.closest('li');
 
-    // Alterna la clase 'marked' en el elemento li
-    liElement.classList.toggle('marked');
+// Alterna la clase 'marked' en el elemento li
+liElement.classList.toggle('marked');
 
-    var image = liElement.querySelector('.my-check-img');
-    if (image.style.display === 'none') {
-        image.style.display = 'block'; // Muestra la imagen si estaba oculta
-    } else {
-        image.style.display = 'none'; // Oculta la imagen si estaba visible
-    }
+var image = liElement.querySelector('.my-check-img');
+if (image.style.display === 'none') {
+   image.style.display = 'block'; // Muestra la imagen si estaba oculta
+} else {
+   image.style.display = 'none'; // Oculta la imagen si estaba visible
+}
 
-    // Guarda el estado 'marked' en localStorage
-    var taskId = liElement.id; // Asume que el ID del elemento li es único
-    var markedState = liElement.classList.contains('marked');
-    localStorage.setItem('markedState_' + taskId, markedState);
+// Guarda el estado 'marked' en localStorage
+var taskId = liElement.id; // Asume que el ID del elemento li es único
+var markedState = liElement.classList.contains('marked');
+localStorage.setItem('markedState_' + taskId, markedState);
 }
 
 //funcion para restaurar los checks ya realizados
 function restoreMarkedState() {
 var listOfTasks = document.getElementById("list-of-tasks").children;
 
-    for (var i = 0; i < listOfTasks.length; i++) {
-        var taskId = listOfTasks[i].id;
-        var markedState = JSON.parse(localStorage.getItem('markedState_' + taskId)); // Convertir a booleano
+for (var i = 0; i < listOfTasks.length; i++) {
+  var taskId = listOfTasks[i].id;
+  var markedState = JSON.parse(localStorage.getItem('markedState_' + taskId)); // Convertir a booleano
 
-        console.log('Task ID:', taskId, 'Marked State:', markedState);
+  console.log('Task ID:', taskId, 'Marked State:', markedState);
 
-        if (markedState) {
-            // Aplicar la clase 'marked' y visualización del icono
-            listOfTasks[i].classList.add('marked');
-            listOfTasks[i].querySelector('.my-check-img').style.display = 'block'; // Cambio aquí
-        }
-    }
+  if (markedState) {
+      // Aplicar la clase 'marked' y visualización del icono
+      listOfTasks[i].classList.add('marked');
+      listOfTasks[i].querySelector('.my-check-img').style.display = 'block'; // Cambio aquí
+  }
+}
 }
 
 // Función para obtener las tareas almacenadas en el LocalStorage
 function getTasksFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('tasks')) || [];
+return JSON.parse(localStorage.getItem('tasks')) || [];
 }
 
 // Función para cargar las tareas almacenadas en el LocalStorage y mostrarlas en el DOM
 function loadTasks() {
-    var tasks = getTasksFromLocalStorage();
-    var listOfTasks = document.getElementById("list-of-tasks");
+var tasks = getTasksFromLocalStorage();
+var listOfTasks = document.getElementById("list-of-tasks");
 
-    tasks.forEach(function(taskData) {
-        var taskElement = createTaskElement(taskData);
-        listOfTasks.appendChild(taskElement);
-    });
+tasks.forEach(function(taskData) {
+    var taskElement = createTaskElement(taskData);
+    listOfTasks.appendChild(taskElement);
+});
 
-    addContentEditable(); 
+addContentEditable(); 
 }
 
 
 // FUNCION PARA COLOCAR EN LAS SPAN LA FUNCION DE TOGGLE EDITION
 // Obtén todos los elementos con la clase div-container-edit
 function addeventOnclick() {
-  var listOfTasks = document.getElementById("list-of-tasks");
+var listOfTasks = document.getElementById("list-of-tasks");
 
-    // Utiliza delegación de eventos para asignar el evento 'click' a la lista contenedora
-    listOfTasks.addEventListener('click', function(event) {
-        var target = event.target;
+// Utiliza delegación de eventos para asignar el evento 'click' a la lista contenedora
+listOfTasks.addEventListener('click', function(event) {
+    var target = event.target;
 
-        // Verifica si el clic se hizo en un elemento con la clase 'edit' y el id 'event-edit'
-        if (target.classList.contains('edit') && target.id === 'event-edit') {
-            toggleEditing(target);
-        }
-    });
+    // Verifica si el clic se hizo en un elemento con la clase 'edit' y el id 'event-edit'
+    if (target.classList.contains('edit') && target.id === 'event-edit') {
+        toggleEditing(target);
+    }
+});
 }
 
 // Llamada a la función loadTasks al cargar la página para mostrar las tareas existentes
 window.onload = function() {
-  loadTasks();
-  addeventOnclick();
-  restoreMarkedState();
+loadTasks();
+addeventOnclick();
+restoreMarkedState();
 };
 
 // Llama a esta función después de cargar la pagina

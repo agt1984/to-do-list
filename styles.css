@@ -1,6 +1,7 @@
 body{
     display: block;
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #a4d5a4;
 }
 #input-header{
     text-align: center;
@@ -17,13 +18,15 @@ body{
 
 /*tamaño de fuente de la etiqueta*/
 h2{
-    font-size: 16px;
+    font-size: 18px;
     margin-left: 42px;
     margin-top: 0;
     margin-bottom: 5px;
     cursor: pointer;
     border-radius: 7px;
     margin-top: 5px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 p {
     font-size: 14px;
@@ -31,6 +34,8 @@ p {
     margin-top: 0;
     margin-bottom: 0;
     margin-bottom: 5px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -43,16 +48,21 @@ p {
 #list-of-tasks li {
     position: relative;
     display: flex;
-    background: rgb(215, 185, 214);
+    background: rgba(159, 193, 198, 0.743);
+    box-shadow: 10px 10px 10px #888888;
     width: 300px;
     height: auto;
     list-style: none;
     flex-direction: row;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     justify-content: center;
     align-items: center;
     text-align: left;
     border-radius: 7px;
+
+    background-image: url(img/pngtree-technological-industrial-electronic-green-background-technical-panel-path-photo-image_811621.jpg);
+    background-size: cover;
+    background-position: center;
 }
 #list-of-tasks li .close {
     text-align: center;
@@ -65,8 +75,10 @@ p {
     margin-right: 10px;
     margin-top: 2.5px;
     margin-bottom: 5px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-#list-of-tasks li .close:hover {
+#list-of-tasks li .close:hover{
     color: red;
     transition: 0.5s;
 }
@@ -76,15 +88,20 @@ p {
     margin-top:  2.5px;
     margin-bottom:  2.5px;
     height: 30px;
+    border-radius: 5px;
 }
 #description-task-input {
     margin-top: 2.5px;
     margin-bottom:  2.5px;
     height: 30px;
+    border-radius: 5px;
 }
 /*ESTETICA DEL BOTON*/
 #button-input{
     height: 35px;
+    background-color: green;
+    color: white;
+    border-radius: 15px;
 }
 
 
@@ -96,15 +113,12 @@ p {
     cursor: pointer;
     border-radius: 5px;
 }
-#div-container:hover {
-    color: red;
-    transition: 0.5s;
-    border-radius: 5px;
-}
+
 
 .marked {
     background-color: rgb(215, 82, 210); /* Color de fondo amarillo claro */
-    text-decoration: line-through 1.2px black;
+    text-decoration: line-through 1.2px rgb(251, 52, 52);
+    transition: 0.5s;
 }
 
 
@@ -124,9 +138,11 @@ p {
     margin-top: 5px;
     margin-bottom: 2.5px;
     font-size: 27px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 .edit:hover{
-    color: red;
+    color: rgb(233, 24, 248);
     transition: 0.5s;
 }
 
