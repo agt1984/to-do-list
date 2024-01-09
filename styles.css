@@ -47,7 +47,6 @@ p {
     margin: auto;
     margin-top: 10px;
     padding: 0;
-
     display: flex;
     flex-direction: column;
 }
@@ -65,8 +64,6 @@ p {
     align-items: center;
     text-align: left;
     border-radius: 7px;
-
-    
 }
 #list-of-tasks li .close {
     text-align: center;
@@ -113,8 +110,6 @@ p {
     box-shadow: 10px 10px 10px #888888;
 }
 
-
-
 /*ESTETICA DEL DIV*/
 #div-container{
     /*border-right: 1px solid black;*/
@@ -130,12 +125,12 @@ p {
     order: 1;
 }
 
- /*ESTETICA DEL DIV LAPIZ*/
- .div-container-edit {
+/*ESTETICA DEL DIV LAPIZ*/
+.div-container-edit {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
- }
+}
 .edit {
     text-align: center;
     width: 40px;
@@ -153,7 +148,6 @@ p {
     color: rgb(233, 24, 248);
     transition: 0.5s;
 }
-
 
 /*el aspecto del contenido editable*/
 [contentEditable="true"] {
