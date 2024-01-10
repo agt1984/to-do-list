@@ -256,6 +256,14 @@ function addeventOnclick() {
     });
 }
 
+//FUNCION PARA EJECUTAR OTRAS FUNCIONES
+function allExecutable() {
+    addTask();
+    eliminateElement(); 
+    clearImput(); 
+    addeventOnclick();
+}
+
 // Llamada a la función loadTasks al cargar la página para mostrar las tareas existentes
 window.onload = function() {
     loadTasks();
