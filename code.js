@@ -172,7 +172,6 @@ function clearImput() {
 
 //funcion qu se encarga de egenerar un contado como id unico
 function generateUniqueId() {
-    // incrementa el contador y devuelve el nuevo valor
     return idCounter++;
 }
 
